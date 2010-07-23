@@ -24,6 +24,7 @@ abstract class MimeTypes {
 				array('form', 'multipart/form-data'),
 				array('url-form', 'application/x-www-form-urlencoded'),
 				array('csv', 'text/csv'),
+				array('zip','application/zip'),
 			)
 		);
 	}
