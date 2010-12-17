@@ -73,10 +73,13 @@ abstract class Application {
 	}
 	
 	function init() {
-		$this->addViewPath($_ENV['dir.recess'] . 'recess/framework/ui/parts/');
 		foreach($this->plugins as $plugin) {
 			$plugin->init($this);
 		}
+		// Prevent caching of app view's dir:
+		$class = get_class($this);
+		$app = new $class;
+		$this->viewsDir = $app->viewsDir;
 		$this->addViewPath($this->viewsDir);
 	}
 	
@@ -131,4 +134,3 @@ abstract class Application {
 		return call_user_func_array(array($controller,'urlTo'),$args);
 	}	
 }
-?>
