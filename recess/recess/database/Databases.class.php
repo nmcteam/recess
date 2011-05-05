@@ -1,4 +1,6 @@
 <?php
+Library::import('recess.database.orm.ModelDataSource');
+
 /**
  * Registry of Database Sources
  *
@@ -22,10 +24,14 @@ class Databases {
 	 * @return PdoDataSource
 	 */
 	static function getSource($name) {
-		if(isset(self::$sources[$name]))
+		if(isset(self::$sources[$name])) {
+            if(is_array(self::$sources[$name])) {
+                self::$sources[$name] = new ModelDataSource(self::$sources[$name]);
+            }
 			return self::$sources[$name];
-		else
+        } else {
 			return null;
+        }
 	}
 	
 	/**
@@ -34,7 +40,7 @@ class Databases {
 	 * @param string $name
 	 * @param PdoDataSource $source
 	 */
-	static function addSource($name, PdoDataSource $source) {
+	static function addSource($name, $source) {
 		self::$sources[$name] = $source;
 	}
 	
@@ -52,7 +58,7 @@ class Databases {
 	 *
 	 * @param PdoDataSource $source
 	 */
-	static function setDefaultSource(PdoDataSource $source) {
+	static function setDefaultSource($source) {
 		self::$sources[self::DEFAULT_SOURCE] = $source;
 	}
 	
@@ -62,7 +68,7 @@ class Databases {
 	 * @return PdoDataSource
 	 */
 	static function getDefaultSource() {
-		return self::$sources[self::DEFAULT_SOURCE];
+		return self::getSource(self::DEFAULT_SOURCE);
 	}
 	
 }

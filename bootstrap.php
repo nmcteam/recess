@@ -140,7 +140,7 @@ abstract class RecessConf {
 		}
 		
 		try {
-			Databases::setDefaultSource(new ModelDataSource(RecessConf::$defaultDatabase));
+			Databases::setDefaultSource(RecessConf::$defaultDatabase);
 		} catch(DataSourceCouldNotConnectException $e) {
 			$databaseType = parse_url(RecessConf::$defaultDatabase[0], PHP_URL_SCHEME);
 			if(!in_array($databaseType, pdo_drivers())) {
@@ -153,7 +153,7 @@ abstract class RecessConf {
 		}
 		if(!empty(RecessConf::$namedDatabases)) {
 			foreach(RecessConf::$namedDatabases as $name => $sourceInfo) {
-				Databases::addSource($name, new ModelDataSource($sourceInfo));
+				Databases::addSource($name, $sourceInfo);
 			}
 		}
 		
