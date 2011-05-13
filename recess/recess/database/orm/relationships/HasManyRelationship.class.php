@@ -123,7 +123,8 @@ class HasManyRelationship extends Relationship {
 					->innerJoin($localTable,
 								$foreignKey, 
 								$primaryKey 
-								);
+								)
+					->from($relatedTable);
 		
 		$select->rowClass = $relatedClass;
 		

@@ -164,7 +164,8 @@ abstract class Model extends Object implements ISqlConditions {
 	
 	protected static function finalClassDescriptor($class, $descriptor) {
 		$modelSource = Databases::getSource($descriptor->getSourceName());
-		$modelSource->cascadeTableDescriptor($descriptor->getTable(), $modelSource->modelToTableDescriptor($descriptor));	
+        $modelSource->cascadeTableDescriptor($descriptor->getTable(), $modelSource->modelToTableDescriptor($descriptor));
+        $descriptor->setTable($descriptor->getTable(),$descriptor->getSourceName());
 		return $descriptor;
 	}
 	
@@ -187,6 +188,7 @@ abstract class Model extends Object implements ISqlConditions {
 	 */
 	protected function getModelSet() {
 		$thisClassDescriptor = self::getClassDescriptor($this);
+
 		$result = $thisClassDescriptor->getSource()->selectModelSet($thisClassDescriptor->getTable());
 		$pkName = self::primaryKeyName($this);
 		
@@ -199,6 +201,7 @@ abstract class Model extends Object implements ISqlConditions {
 				}
 			}
 		}
+
 		
 		$result->rowClass = get_class($this);
 		return $result;
@@ -365,6 +368,7 @@ abstract class Model extends Object implements ISqlConditions {
 	 */
 	function exists() {
 		$result = $this->select()->first();
+
 		if($result !== false) {
 			$this->copy($result, false);
 			return true;
@@ -605,4 +609,3 @@ class ModelProperty {
 		return $prop;
 	}
 }
-?>

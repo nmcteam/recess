@@ -94,7 +94,7 @@ class MysqlDataSourceProvider implements IPdoDataSourceProvider {
 				$result['Default'] == null ? '' : $result['Default'],
 				$result['Extra'] == 'auto_increment' ? array('autoincrement' => true) : array());
 		}
-		
+
 		return $tableDescriptor;
 	}
 	
@@ -241,14 +241,13 @@ class MysqlDataSourceProvider implements IPdoDataSourceProvider {
 	 */
 	function cascadeTableDescriptor($table, RecessTableDescriptor $descriptor) {
 		$sourceDescriptor = $this->getTableDescriptor($table);
-		
+
 		if(!$sourceDescriptor->tableExists) {
 			$descriptor->tableExists = false;
 			return $descriptor;
 		}
 		
-		$sourceColumns = $sourceDescriptor->getColumns();
-		
+        $sourceColumns = $sourceDescriptor->getColumns();
 		$errors = array();
 		
 		foreach($descriptor->getColumns() as $column) {

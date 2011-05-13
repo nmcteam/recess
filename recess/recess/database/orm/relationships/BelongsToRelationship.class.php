@@ -63,7 +63,8 @@ class BelongsToRelationship extends Relationship {
 					->from(Model::tableFor($this->foreignClass))
 					->innerJoin(Model::tableFor($this->localClass), 
 								Model::primaryKeyFor($this->foreignClass), 
-								Model::tableFor($this->localClass) . '.' . $this->foreignKey);
+								Model::tableFor($this->localClass) . '.' . $this->foreignKey)
+					->from(Model::tableFor($this->foreignClass));
 						
 		$select->rowClass = $this->foreignClass;
 		return $select;
