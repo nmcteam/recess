@@ -1,5 +1,6 @@
 <?php
 Library::import('recess.lang.Annotation');
+Library::import('recess.http.Methods');
 Library::import('recess.framework.routing.Route');
 
 class RouteAnnotation extends Annotation {
@@ -10,7 +11,7 @@ class RouteAnnotation extends Annotation {
 	protected $path = self::EMPTY_PATH;
 	
 	public function usage() {
-		return '!Route ( GET | POST | PUT | DELETE)[, route/path/here]';
+		return '!Route ( GET | POST | PUT | DELETE | OPTIONS)[, route/path/here]';
 	}
 
 	public function isFor() {
@@ -21,7 +22,7 @@ class RouteAnnotation extends Annotation {
 		$this->minimumParameterCount(1);
 		$this->maximumParameterCount(2);
 		$this->validOnSubclassesOf($class, Controller::CLASSNAME);
-		$this->acceptedIndexedValues(0, array(Methods::GET, Methods::POST, Methods::PUT, Methods::DELETE));
+		$this->acceptedIndexedValues(0, array(Methods::GET, Methods::POST, Methods::PUT, Methods::DELETE, Methods::OPTIONS, Methods::HEAD));
 	}
 	
 	protected function expand($class, $reflection, $descriptor) {
