@@ -13,6 +13,7 @@ abstract class MimeTypes {
 				array('xml', array('application/xml', 'text/xml', 'application/x-xml')),
 				array('json', array('application/json', 'text/x-json','application/jsonrequest')),
 				array('js', array('text/javascript', 'application/javascript', 'application/x-javascript')),
+				array('jsonp', array('text/javascript')),
 				array('css', 'text/css'),
 				array('rss', 'application/rss+xml'),
 				array('yaml', array('application/x-yaml', 'text/yaml')),
